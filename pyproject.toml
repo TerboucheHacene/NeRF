@@ -1,0 +1,71 @@
+[tool.poetry]
+name = "nerf"
+version = "0.1.0"
+description = ""
+authors = ["TERBOUCHE Hacene <hacene.terbouche@gmail.com>"]
+readme = "README.md"
+packages = [ { include = "nerf", from = "src" } ]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+torch = { version="^1.13.0", extras=["cuda116"] }
+torchvision = { version="^0.14", extras=["cuda116"] }
+tqdm = "^4.66.2"
+opencv-python = "4.5.5.64"
+
+
+[tool.poetry.group.dev.dependencies]
+wandb = "^0.13.5"
+matplotlib = "^3.6.2"
+ipywidgets = "^8.0.4"
+
+
+[tool.poetry.group.lint.dependencies]
+ruff = "^0.9.1"
+isort = "^5.10"
+pre-commit = "^2.16"
+
+
+[tool.ruff]
+line-length = 100
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
+ignore = []
+fixable = ["ALL"]
+unfixable = []
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = false
+docstring-code-line-length = "dynamic"
+
+
+[tool.isort]
+profile = "ruff"
+line_length = 100
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+
+[tool.semantic_release]
+version_toml = "pyproject.toml:tool.poetry.version"
+# to track and update version in other files:
+# version_variable = ["some/file:__version__", ...]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+build_command = "pip install poetry && poetry build"
+dist_path = "dist/"
+upload_to_pypi = false
+remove_dist = false
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
